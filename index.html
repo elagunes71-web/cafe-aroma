@@ -1,0 +1,374 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Café Aroma</title>
+<meta name="description" content="Café Aroma: café de especialidad, bebidas frías, panadería y comida. Haz tu pedido en línea.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#faf6f1; --surface:#ffffff; --surface-2:#f2ebe2; --text:#2b1d14; --muted:#7a6656;
+  --accent:#b5652b; --accent-ink:#ffffff; --accent-soft:#f6e3d3; --line:#e7dccf; --ok:#2f7a4b;
+  --shadow:0 8px 24px rgba(60,35,15,.08);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#17110d; --surface:#211812; --surface-2:#2b2019; --text:#f3e9df; --muted:#b29c89;
+    --accent:#e08a4c; --accent-ink:#1b120c; --accent-soft:#3a2618; --line:#3a2c22; --ok:#6cc08e;
+    --shadow:0 8px 24px rgba(0,0,0,.35);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#17110d; --surface:#211812; --surface-2:#2b2019; --text:#f3e9df; --muted:#b29c89;
+  --accent:#e08a4c; --accent-ink:#1b120c; --accent-soft:#3a2618; --line:#3a2c22; --ok:#6cc08e;
+  --shadow:0 8px 24px rgba(0,0,0,.35);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.55 Inter,system-ui,sans-serif;overflow-x:hidden}
+h1,h2,h3{font-family:Fraunces,Georgia,serif;line-height:1.15;margin:0}
+a{color:inherit}
+.wrap{max-width:1120px;margin:0 auto;padding:0 16px}
+button{font:inherit;cursor:pointer}
+
+/* Header */
+header{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:64px;gap:12px}
+.brand{display:flex;align-items:center;gap:10px;font-family:Fraunces,serif;font-weight:700;font-size:1.25rem;text-decoration:none}
+.brand svg{color:var(--accent)}
+.nav-links{display:flex;gap:24px}
+.nav-links a{text-decoration:none;color:var(--muted);font-weight:500}
+.nav-links a:hover{color:var(--text)}
+.cart-btn{display:flex;align-items:center;gap:8px;background:var(--accent);color:var(--accent-ink);border:0;border-radius:999px;padding:9px 16px;font-weight:600}
+.cart-count{background:var(--accent-ink);color:var(--accent);border-radius:999px;min-width:22px;height:22px;display:grid;place-items:center;font-size:.8rem;padding:0 6px}
+@media (max-width:720px){.nav-links{display:none}}
+
+/* Hero */
+.hero{padding:72px 0 56px}
+.hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center}
+.eyebrow{display:inline-block;background:var(--accent-soft);color:var(--accent);font-weight:600;font-size:.85rem;padding:6px 12px;border-radius:999px;margin-bottom:18px}
+.hero h1{font-size:clamp(2.2rem,5vw,3.6rem);margin-bottom:18px}
+.hero h1 em{color:var(--accent);font-style:italic}
+.hero p{color:var(--muted);font-size:1.1rem;max-width:520px;margin:0 0 28px}
+.cta{display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 22px;border-radius:12px;font-weight:600;text-decoration:none;border:1px solid transparent}
+.btn-primary{background:var(--accent);color:var(--accent-ink)}
+.btn-ghost{border-color:var(--line);background:var(--surface)}
+.hero-art{position:relative;aspect-ratio:1;border-radius:32px;background:radial-gradient(circle at 30% 25%,var(--accent-soft),var(--surface-2));display:grid;place-items:center;box-shadow:var(--shadow);overflow:hidden}
+.hero-art svg{width:62%;height:auto}
+.badge{position:absolute;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:10px 14px;box-shadow:var(--shadow);font-size:.9rem}
+.badge b{display:block;font-size:1.1rem}
+.badge.b1{top:8%;right:6%} .badge.b2{bottom:8%;left:6%}
+.stats{display:flex;gap:32px;margin-top:36px;flex-wrap:wrap}
+.stats b{font-family:Fraunces,serif;font-size:1.6rem;display:block}
+.stats span{color:var(--muted);font-size:.9rem}
+@media (max-width:860px){.hero-grid{grid-template-columns:1fr}.hero{padding:40px 0}.hero-art{max-width:420px;width:100%;margin:0 auto}}
+
+/* Menu */
+section{padding:56px 0}
+.section-head{display:flex;justify-content:space-between;align-items:end;gap:16px;flex-wrap:wrap;margin-bottom:24px}
+.section-head h2{font-size:clamp(1.8rem,3.5vw,2.4rem)}
+.section-head p{color:var(--muted);margin:6px 0 0}
+.filters{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;margin-bottom:24px;scrollbar-width:none}
+.filters::-webkit-scrollbar{display:none}
+.chip{flex:none;border:1px solid var(--line);background:var(--surface);color:var(--text);border-radius:999px;padding:8px 16px;font-weight:500}
+.chip[aria-pressed="true"]{background:var(--text);color:var(--bg);border-color:var(--text)}
+.search{border:1px solid var(--line);background:var(--surface);color:var(--text);border-radius:12px;padding:10px 14px;min-width:240px;font:inherit}
+@media (max-width:520px){.search{min-width:0;width:100%}}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:18px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:20px;overflow:hidden;display:flex;flex-direction:column;transition:transform .15s,box-shadow .15s}
+.card:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
+.card-img{height:140px;display:grid;place-items:center;font-size:3.6rem;position:relative}
+.tag{position:absolute;top:12px;left:12px;background:var(--surface);color:var(--accent);font-size:.75rem;font-weight:600;padding:4px 10px;border-radius:999px}
+.card-body{padding:16px 18px 18px;display:flex;flex-direction:column;gap:6px;flex:1}
+.card h3{font-size:1.15rem}
+.card p{color:var(--muted);font-size:.9rem;margin:0;flex:1}
+.card-foot{display:flex;justify-content:space-between;align-items:center;margin-top:10px}
+.price{font-weight:600;font-size:1.1rem}
+.add{border:0;background:var(--accent-soft);color:var(--accent);border-radius:10px;padding:8px 14px;font-weight:600}
+.add:hover{background:var(--accent);color:var(--accent-ink)}
+.empty{color:var(--muted);text-align:center;padding:40px 0;display:none}
+
+/* Features */
+.features{background:var(--surface-2)}
+.feat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
+.feat{background:var(--surface);border-radius:18px;padding:22px;border:1px solid var(--line)}
+.feat .ico{font-size:1.8rem}
+.feat h3{font-size:1.15rem;margin:10px 0 6px}
+.feat p{color:var(--muted);margin:0;font-size:.95rem}
+
+/* Visit */
+.visit{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.box{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:26px}
+.box h3{font-size:1.3rem;margin-bottom:12px}
+.hours{list-style:none;padding:0;margin:0}
+.hours li{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px dashed var(--line)}
+.hours li:last-child{border:0}
+@media (max-width:760px){.visit{grid-template-columns:1fr}}
+footer{border-top:1px solid var(--line);padding:28px 0;color:var(--muted);font-size:.9rem}
+footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+
+/* Cart drawer */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.4);opacity:0;pointer-events:none;transition:opacity .2s;z-index:40}
+.drawer{position:fixed;top:0;right:0;height:100%;width:min(400px,100%);background:var(--surface);z-index:50;transform:translateX(100%);transition:transform .25s;display:flex;flex-direction:column;box-shadow:-10px 0 30px rgba(0,0,0,.15)}
+.open .overlay{opacity:1;pointer-events:auto}
+.open .drawer{transform:none}
+.drawer-head{display:flex;justify-content:space-between;align-items:center;padding:18px 20px;border-bottom:1px solid var(--line)}
+.drawer-head h3{font-size:1.3rem}
+.x{border:0;background:none;color:var(--text);font-size:1.6rem;line-height:1}
+.items{flex:1;overflow:auto;padding:8px 20px}
+.item{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
+.item .emo{font-size:1.8rem;width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:var(--surface-2)}
+.item .info{flex:1;min-width:0}
+.item .info b{display:block;font-weight:600}
+.item .info span{color:var(--muted);font-size:.85rem}
+.qty{display:flex;align-items:center;gap:8px}
+.qty button{width:28px;height:28px;border-radius:8px;border:1px solid var(--line);background:var(--surface-2);color:var(--text)}
+.drawer-foot{padding:18px 20px;border-top:1px solid var(--line)}
+.row{display:flex;justify-content:space-between;margin-bottom:6px;color:var(--muted)}
+.row.total{color:var(--text);font-weight:700;font-size:1.15rem;margin:10px 0 16px}
+.checkout{width:100%;border:0;background:var(--accent);color:var(--accent-ink);border-radius:12px;padding:14px;font-weight:600}
+.checkout:disabled{opacity:.5;cursor:not-allowed}
+.drawer-empty{text-align:center;color:var(--muted);padding:48px 0}
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,120px);background:var(--text);color:var(--bg);padding:12px 20px;border-radius:12px;font-weight:500;transition:transform .25s;z-index:60;max-width:calc(100% - 32px)}
+.toast.show{transform:translate(-50%,0)}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a href="#" class="brand">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8h1a4 4 0 1 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/><path d="M6 2v2M10 2v2M14 2v2"/></svg>
+      Café Aroma
+    </a>
+    <nav class="nav-links">
+      <a href="#menu">Menú</a>
+      <a href="#nosotros">Nosotros</a>
+      <a href="#visitanos">Visítanos</a>
+    </nav>
+    <button class="cart-btn" id="openCart" aria-label="Ver pedido">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18M16 10a4 4 0 0 1-8 0"/></svg>
+      Pedido <span class="cart-count" id="cartCount">0</span>
+    </button>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <span class="eyebrow">☕ Tostado artesanal cada semana</span>
+        <h1>Tu café favorito, <em>listo</em> en minutos</h1>
+        <p>Café de especialidad, bebidas frías, pan recién horneado y comida casera. Arma tu pedido aquí y recógelo sin hacer fila.</p>
+        <div class="cta">
+          <a href="#menu" class="btn btn-primary">Ver el menú →</a>
+          <a href="#visitanos" class="btn btn-ghost">Cómo llegar</a>
+        </div>
+        <div class="stats">
+          <div><b>30+</b><span>productos</span></div>
+          <div><b>5 min</b><span>tiempo promedio</span></div>
+          <div><b>4.9★</b><span>calificación</span></div>
+        </div>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <svg viewBox="0 0 200 200">
+          <ellipse cx="100" cy="168" rx="70" ry="10" fill="currentColor" opacity=".08"/>
+          <path d="M45 80h100v50a40 40 0 0 1-40 40H85a40 40 0 0 1-40-40Z" fill="var(--accent)"/>
+          <path d="M145 92h10a20 20 0 0 1 0 40h-12" fill="none" stroke="var(--accent)" stroke-width="10"/>
+          <ellipse cx="95" cy="80" rx="50" ry="10" fill="#5a3420"/>
+          <path d="M75 30c-8 10 8 16 0 28M98 22c-8 12 8 18 0 32M121 30c-8 10 8 16 0 28" fill="none" stroke="var(--muted)" stroke-width="5" stroke-linecap="round" opacity=".6"/>
+        </svg>
+        <div class="badge b1"><b>Recién hecho</b>Pide y recoge</div>
+        <div class="badge b2"><b>Desde $35</b>Café de la casa</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="menu">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <h2>Nuestro menú</h2>
+          <p>Toca “Agregar” para sumar productos a tu pedido.</p>
+        </div>
+        <input class="search" id="search" type="search" placeholder="Buscar producto…" aria-label="Buscar producto">
+      </div>
+      <div class="filters" id="filters" role="toolbar" aria-label="Categorías"></div>
+      <div class="grid" id="grid"></div>
+      <p class="empty" id="empty">No encontramos productos con esa búsqueda.</p>
+    </div>
+  </section>
+
+  <section class="features" id="nosotros">
+    <div class="wrap">
+      <div class="section-head"><div><h2>¿Por qué Café Aroma?</h2><p>Hacemos las cosas con calma para que tú no tengas que esperar.</p></div></div>
+      <div class="feat-grid">
+        <div class="feat"><div class="ico">🌱</div><h3>Grano mexicano</h3><p>Café de Veracruz, Chiapas y Oaxaca, comprado directo a productores.</p></div>
+        <div class="feat"><div class="ico">🔥</div><h3>Tostado propio</h3><p>Tostamos cada semana en pequeños lotes para un sabor siempre fresco.</p></div>
+        <div class="feat"><div class="ico">🥐</div><h3>Panadería diaria</h3><p>Pan dulce y salado horneado cada mañana en nuestra cocina.</p></div>
+        <div class="feat"><div class="ico">📱</div><h3>Pide sin fila</h3><p>Arma tu pedido en línea y recógelo en barra cuando esté listo.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="visitanos">
+    <div class="wrap visit">
+      <div class="box">
+        <h3>Horario</h3>
+        <ul class="hours">
+          <li><span>Lunes a viernes</span><b>7:00 – 21:00</b></li>
+          <li><span>Sábado</span><b>8:00 – 22:00</b></li>
+          <li><span>Domingo</span><b>8:00 – 20:00</b></li>
+        </ul>
+      </div>
+      <div class="box">
+        <h3>Visítanos</h3>
+        <p style="color:var(--muted);margin:0 0 16px">Av. Principal 123, Col. Centro<br>Tel. 55 0000 0000</p>
+        <div class="cta">
+          <a href="#menu" class="btn btn-primary">Hacer pedido</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Café Aroma</span>
+    <span>Hecho con ☕ y cariño</span>
+  </div>
+</footer>
+
+<div id="cartRoot">
+  <div class="overlay" id="overlay"></div>
+  <aside class="drawer" aria-label="Tu pedido">
+    <div class="drawer-head"><h3>Tu pedido</h3><button class="x" id="closeCart" aria-label="Cerrar">×</button></div>
+    <div class="items" id="items"></div>
+    <div class="drawer-foot">
+      <div class="row"><span>Subtotal</span><span id="subtotal">$0.00</span></div>
+      <div class="row"><span>IVA incluido (16%)</span><span id="iva">$0.00</span></div>
+      <div class="row total"><span>Total</span><span id="total">$0.00</span></div>
+      <button class="checkout" id="checkout" disabled>Confirmar pedido</button>
+    </div>
+  </aside>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+const PRODUCTS = [
+  {id:1, name:"Espresso", cat:"Café caliente", price:35, emoji:"☕", desc:"Shot doble de nuestro blend de la casa.", tag:"Clásico"},
+  {id:2, name:"Americano", cat:"Café caliente", price:40, emoji:"☕", desc:"Espresso con agua caliente, suave y aromático."},
+  {id:3, name:"Capuchino", cat:"Café caliente", price:52, emoji:"☕", desc:"Espresso, leche vaporizada y espuma cremosa.", tag:"Favorito"},
+  {id:4, name:"Latte", cat:"Café caliente", price:55, emoji:"🥛", desc:"Espresso con abundante leche texturizada."},
+  {id:5, name:"Mocha", cat:"Café caliente", price:60, emoji:"🍫", desc:"Latte con chocolate semiamargo y cacao."},
+  {id:6, name:"Café de olla", cat:"Café caliente", price:45, emoji:"🫖", desc:"Con piloncillo y canela, receta tradicional."},
+  {id:7, name:"Frappé de café", cat:"Bebidas frías", price:65, emoji:"🧋", desc:"Café, leche y hielo frappeado con crema batida.", tag:"Popular"},
+  {id:8, name:"Cold brew", cat:"Bebidas frías", price:58, emoji:"🧊", desc:"Infusión en frío por 18 horas, sin amargor."},
+  {id:9, name:"Latte helado", cat:"Bebidas frías", price:58, emoji:"🥤", desc:"Espresso sobre leche fría y hielo."},
+  {id:10, name:"Chai latte frío", cat:"Bebidas frías", price:60, emoji:"🧋", desc:"Té chai especiado con leche y hielo."},
+  {id:11, name:"Limonada mineral", cat:"Bebidas frías", price:42, emoji:"🍋", desc:"Limón natural con agua mineral."},
+  {id:12, name:"Té verde", cat:"Tés", price:38, emoji:"🍵", desc:"Hojas sueltas de té verde sencha."},
+  {id:13, name:"Matcha latte", cat:"Tés", price:62, emoji:"🍵", desc:"Matcha ceremonial con leche vaporizada.", tag:"Nuevo"},
+  {id:14, name:"Chocolate caliente", cat:"Tés", price:48, emoji:"🍫", desc:"Chocolate mexicano batido con leche."},
+  {id:15, name:"Croissant", cat:"Panadería", price:38, emoji:"🥐", desc:"De mantequilla, hojaldrado y dorado."},
+  {id:16, name:"Concha", cat:"Panadería", price:22, emoji:"🍞", desc:"Pan dulce tradicional de vainilla o chocolate."},
+  {id:17, name:"Muffin de arándano", cat:"Panadería", price:40, emoji:"🧁", desc:"Esponjoso, con arándanos frescos."},
+  {id:18, name:"Rol de canela", cat:"Panadería", price:45, emoji:"🥮", desc:"Con glaseado de queso crema.", tag:"Recién horneado"},
+  {id:19, name:"Galleta de chispas", cat:"Panadería", price:28, emoji:"🍪", desc:"Crujiente por fuera, suave por dentro."},
+  {id:20, name:"Chilaquiles", cat:"Comida", price:95, emoji:"🍳", desc:"Verdes o rojos, con pollo, crema y queso."},
+  {id:21, name:"Molletes", cat:"Comida", price:75, emoji:"🥖", desc:"Con frijoles, queso gratinado y pico de gallo."},
+  {id:22, name:"Sándwich de pavo", cat:"Comida", price:85, emoji:"🥪", desc:"Pan artesanal, pavo, queso panela y aguacate."},
+  {id:23, name:"Bagel con queso crema", cat:"Comida", price:60, emoji:"🥯", desc:"Bagel tostado con queso crema y cebollín."},
+  {id:24, name:"Ensalada de la casa", cat:"Comida", price:90, emoji:"🥗", desc:"Mezcla de hojas, nuez, manzana y vinagreta."},
+  {id:25, name:"Pastel de zanahoria", cat:"Postres", price:58, emoji:"🍰", desc:"Rebanada con betún de queso crema."},
+  {id:26, name:"Cheesecake", cat:"Postres", price:62, emoji:"🍰", desc:"Estilo New York con salsa de frutos rojos."},
+  {id:27, name:"Brownie", cat:"Postres", price:40, emoji:"🟫", desc:"De chocolate amargo con nuez."},
+  {id:28, name:"Café en grano 250 g", cat:"Para llevar", price:180, emoji:"🫘", desc:"Nuestro blend de la casa, molido a tu gusto."},
+  {id:29, name:"Termo Café Aroma", cat:"Para llevar", price:250, emoji:"🥤", desc:"Termo de acero inoxidable de 450 ml."},
+  {id:30, name:"Taza de cerámica", cat:"Para llevar", price:150, emoji:"☕", desc:"Hecha a mano, edición de la casa."},
+];
+const TINTS = {"Café caliente":"#e9d3bf","Bebidas frías":"#d6e6ea","Tés":"#dbe8d2","Panadería":"#f3dfc0","Comida":"#f1d4c8","Postres":"#efd6df","Para llevar":"#e2dcef"};
+
+const money = n => n.toLocaleString("es-MX",{style:"currency",currency:"MXN"});
+const $ = s => document.querySelector(s);
+let activeCat = "Todos", query = "";
+let cart = {};
+try { cart = JSON.parse(localStorage.getItem("cafe-cart")) || {}; } catch(e) {}
+const save = () => { try { localStorage.setItem("cafe-cart", JSON.stringify(cart)); } catch(e) {} };
+
+// Filters
+const cats = ["Todos", ...new Set(PRODUCTS.map(p => p.cat))];
+$("#filters").innerHTML = cats.map(c => `<button class="chip" aria-pressed="${c==="Todos"}" data-cat="${c}">${c}</button>`).join("");
+$("#filters").addEventListener("click", e => {
+  const b = e.target.closest(".chip"); if (!b) return;
+  activeCat = b.dataset.cat;
+  document.querySelectorAll(".chip").forEach(x => x.setAttribute("aria-pressed", x === b));
+  renderGrid();
+});
+$("#search").addEventListener("input", e => { query = e.target.value.trim().toLowerCase(); renderGrid(); });
+
+function renderGrid(){
+  const list = PRODUCTS.filter(p => (activeCat==="Todos" || p.cat===activeCat) &&
+    (!query || (p.name+" "+p.desc+" "+p.cat).toLowerCase().includes(query)));
+  $("#grid").innerHTML = list.map(p => `
+    <article class="card">
+      <div class="card-img" style="background:${TINTS[p.cat]}">${p.tag?`<span class="tag">${p.tag}</span>`:""}<span aria-hidden="true">${p.emoji}</span></div>
+      <div class="card-body">
+        <h3>${p.name}</h3>
+        <p>${p.desc}</p>
+        <div class="card-foot"><span class="price">${money(p.price)}</span><button class="add" data-id="${p.id}">+ Agregar</button></div>
+      </div>
+    </article>`).join("");
+  $("#empty").style.display = list.length ? "none" : "block";
+}
+$("#grid").addEventListener("click", e => {
+  const b = e.target.closest(".add"); if (!b) return;
+  const id = b.dataset.id; cart[id] = (cart[id]||0) + 1;
+  save(); renderCart();
+  toast(`${PRODUCTS.find(p=>p.id==id).name} agregado`);
+});
+
+function renderCart(){
+  const entries = Object.entries(cart).filter(([,q]) => q>0);
+  const count = entries.reduce((a,[,q]) => a+q, 0);
+  const total = entries.reduce((a,[id,q]) => a + PRODUCTS.find(p=>p.id==id).price*q, 0);
+  $("#cartCount").textContent = count;
+  $("#items").innerHTML = entries.length ? entries.map(([id,q]) => {
+    const p = PRODUCTS.find(x=>x.id==id);
+    return `<div class="item"><div class="emo">${p.emoji}</div>
+      <div class="info"><b>${p.name}</b><span>${money(p.price)} c/u</span></div>
+      <div class="qty"><button data-id="${id}" data-d="-1" aria-label="Quitar uno">−</button><span>${q}</span><button data-id="${id}" data-d="1" aria-label="Agregar uno">+</button></div></div>`;
+  }).join("") : `<div class="drawer-empty">Tu pedido está vacío.<br>Agrega algo rico del menú ☕</div>`;
+  $("#subtotal").textContent = money(total/1.16);
+  $("#iva").textContent = money(total - total/1.16);
+  $("#total").textContent = money(total);
+  $("#checkout").disabled = !count;
+}
+$("#items").addEventListener("click", e => {
+  const b = e.target.closest("button[data-d]"); if (!b) return;
+  const id = b.dataset.id; cart[id] = (cart[id]||0) + Number(b.dataset.d);
+  if (cart[id] <= 0) delete cart[id];
+  save(); renderCart();
+});
+
+const root = document.body;
+$("#openCart").onclick = () => root.classList.add("open");
+$("#closeCart").onclick = $("#overlay").onclick = () => root.classList.remove("open");
+document.addEventListener("keydown", e => { if (e.key==="Escape") root.classList.remove("open"); });
+$("#checkout").onclick = () => {
+  const n = Math.floor(100 + Math.random()*900);
+  cart = {}; save(); renderCart(); root.classList.remove("open");
+  toast(`¡Pedido #${n} confirmado! Te avisamos cuando esté listo.`);
+};
+
+let t;
+function toast(msg){ const el=$("#toast"); el.textContent=msg; el.classList.add("show"); clearTimeout(t); t=setTimeout(()=>el.classList.remove("show"),2400); }
+
+renderGrid(); renderCart();
+</script>
+</body>
+</html>
